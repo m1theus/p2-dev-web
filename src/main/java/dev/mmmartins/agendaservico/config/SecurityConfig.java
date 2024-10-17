@@ -22,7 +22,6 @@ public class SecurityConfig {
         this.usuarioService = usuarioService;
     }
 
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http

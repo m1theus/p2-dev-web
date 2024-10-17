@@ -17,13 +17,12 @@ import java.util.Set;
 @Data
 public class Usuario {
 
+    @Id
     @Column
     @GeneratedValue
     private Long id;
 
-    @Id
     @Column(unique = true, nullable = false)
-
     private String usuario;
 
     @Column(nullable = false)
