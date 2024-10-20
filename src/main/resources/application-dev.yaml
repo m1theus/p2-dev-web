@@ -1,0 +1,20 @@
+server:
+  port: ${SERVER_PORT:8080}
+spring:
+  application:
+    name: agendaservico
+  config:
+    activate:
+      on-profile: "dev"
+  thymeleaf:
+    cache: false
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres-db
+    username: root
+    password: root123

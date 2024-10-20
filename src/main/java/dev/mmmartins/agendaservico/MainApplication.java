@@ -1,7 +1,9 @@
 package dev.mmmartins.agendaservico;
 
 import dev.mmmartins.agendaservico.model.TipoAcesso;
+import dev.mmmartins.agendaservico.model.Usuario;
 import dev.mmmartins.agendaservico.repository.TipoAcessoRepository;
+import dev.mmmartins.agendaservico.service.UsuarioService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,9 +13,11 @@ import java.util.List;
 @SpringBootApplication
 public class MainApplication implements CommandLineRunner {
     private final TipoAcessoRepository tipoAcessoRepository;
+    private final UsuarioService usuarioService;
 
-    public MainApplication(TipoAcessoRepository tipoAcessoRepository) {
+    public MainApplication(final TipoAcessoRepository tipoAcessoRepository, final UsuarioService usuarioService) {
         this.tipoAcessoRepository = tipoAcessoRepository;
+        this.usuarioService = usuarioService;
     }
 
     public static void main(String[] args) {
@@ -21,10 +25,18 @@ public class MainApplication implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
-        tipoAcessoRepository.saveAll(List.of(
-           TipoAcesso.builder().nome("ADMIN").descricao("ADMIN").build(),
-           TipoAcesso.builder().nome("USER").descricao("USUARIO NORMAL").build()
-        ));
+    public void run(String... args) {
+        if (tipoAcessoRepository.count() == 0) {
+            var acessos = tipoAcessoRepository.saveAll(List.of(
+                    TipoAcesso.builder().nome("ROLE_ADMIN").descricao("USUARIO ADMIN").build(),
+                    TipoAcesso.builder().nome("ROLE_USER").descricao("USUARIO NORMAL").build()
+            ));
+
+            acessos
+                    .stream()
+                    .filter(t -> t.getNome().equals("ROLE_ADMIN"))
+                    .findFirst()
+                    .ifPresent(t -> usuarioService.createUser(new Usuario("1", "1", t)));
+        }
     }
 }

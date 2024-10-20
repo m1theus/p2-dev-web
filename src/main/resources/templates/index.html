@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" data-bs-theme="dark">
+<html data-bs-theme="dark" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,6 +15,17 @@
             <h1 class="h2">Dashboard Info</h1>
         </div>
         <p>This is the main content of the index page.</p>
+        <div sec:authorize="isAuthenticated()">
+            This content is only shown to authenticated users.
+        </div>
+        <div sec:authorize="hasRole('ROLE_ADMIN')">
+            This content is only shown to administrators.
+        </div>
+        <div sec:authorize="hasRole('ROLE_USER')">
+            This content is only shown to users.
+        </div>
+        Logged user: <span sec:authentication="name">Bob</span>
+        Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
     </div>
 </div>
 

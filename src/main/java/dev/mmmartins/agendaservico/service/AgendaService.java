@@ -1,5 +1,6 @@
 package dev.mmmartins.agendaservico.service;
 
+import dev.mmmartins.agendaservico.exception.RegistroNaoEncontradoException;
 import dev.mmmartins.agendaservico.model.Agenda;
 import dev.mmmartins.agendaservico.repository.AgendaRepository;
 import org.springframework.stereotype.Service;
@@ -19,10 +20,19 @@ public class AgendaService {
     }
 
     public Agenda findById(final Long id) {
-        return agendaRepository.findById(id).orElse(null);
+        return agendaRepository.findById(id).orElseThrow(RegistroNaoEncontradoException::new);
     }
 
     public Agenda save(final Agenda agenda) {
         return agendaRepository.save(agenda);
+    }
+
+    public boolean delete(final Long id) {
+        return agendaRepository.findById(id)
+                .map(agenda -> {
+                    agendaRepository.delete(agenda);
+                    return true;
+                })
+                .orElse(false);
     }
 }

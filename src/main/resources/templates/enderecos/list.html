@@ -1,18 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" data-bs-theme="dark">
+<html data-bs-theme="dark" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
     <title>Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
-    <script>
-        function confirmDelete(event) {
-            if (!confirm("Você tem certeza de que deseja excluir este post?")) {
-                event.preventDefault();
-            }
-        }
-    </script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet"> <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 </head>
 <body>
 
@@ -20,46 +14,44 @@
     <div th:fragment="content">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
             <div>
-                <h1 class="h3">Clientes</h1>
+                <h1 class="h3">Endereços</h1>
             </div>
-            <a type="button" class="btn btn-primary" th:href="@{/clientes/cadastro}">
-                Cadastrar Novo Cliente
-            </a>
         </div>
 
-        <div th:if="${success}" class="alert alert-success" th:text="${success}" role="alert">
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="alert alert-success" role="alert" th:if="${success}" th:text="${success}">
+            <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button"></button>
         </div>
-        <div th:if="${error}" class="alert alert-danger" th:text="${error}" role="alert">
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="alert alert-danger" role="alert" th:if="${error}" th:text="${error}">
+            <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button"></button>
         </div>
-        <div th:if="${!#lists.isEmpty(clientes)}">
+        <div th:if="${!#lists.isEmpty(enderecos)}">
             <div class="table-responsive">
                 <table class="table table-hover table-bordered align-middle">
                     <thead class="table-dark">
                     <tr>
-                        <th>CPF</th>
-                        <th>Nome</th>
-                        <th>E-mail</th>
-                        <th>Telefone</th>
-                        <th>Endereço #ID</th>
+                        <th># ID</th>
+                        <th>Logradouro</th>
+                        <th>Número</th>
+                        <th>CEP</th>
+                        <th>Cidade</th>
+                        <th>Estado</th>
+                        <th>Complemento</th>
                         <th>Ações</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="cliente : ${clientes}">
-                        <td th:text="${cliente.cpf}"></td>
-                        <td th:text="${cliente.nome}"></td>
-                        <td th:text="${cliente.email}"></td>
-                        <td th:text="${cliente.telefone}"></td>
-                        <td th:text="${cliente.endereco.id}"></td>
+                    <tr th:each="endereco : ${enderecos}">
+                        <td th:text="${endereco.id}"></td>
+                        <td th:text="${endereco.logradouro}"></td>
+                        <td th:text="${endereco.numero}"></td>
+                        <td class="cep" th:text="${endereco.cep}"></td>
+                        <td th:text="${endereco.cidade}"></td>
+                        <td th:text="${endereco.estado}"></td>
+                        <td th:text="${endereco.complemento}"></td>
                         <td>
                             <div class="d-flex justify-content-end gap-2">
                                 <a class="btn btn-sm btn-outline-primary"
-                                   th:href="@{/clientes/edit/{cpf}(cpf=${cliente.cpf})}">Editar</a>
-                                <a class="btn btn-sm btn-outline-danger"
-                                   th:href="@{/clientes/delete/{cpf}(cpf=${cliente.cpf})}"
-                                   onclick="confirmDelete(event)">Excluir</a>
+                                   th:href="@{/enderecos/edit/{id}(id=${endereco.id})}">Editar</a>
                             </div>
                         </td>
                     </tr>
@@ -67,10 +59,15 @@
                 </table>
             </div>
         </div>
-        <div th:if="${#lists.isEmpty(clientes)}">
-            <span>Nenhum cliente encontrado!</span>
+        <div th:if="${#lists.isEmpty(enderecos)}">
+            <span>Nenhum endereço encontrado!</span>
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+        $('.cep').mask('00000-000');
+    });
+</script>
 </body>
 </html>

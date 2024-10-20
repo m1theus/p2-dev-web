@@ -1,7 +1,7 @@
 package dev.mmmartins.agendaservico.controller;
 
+import dev.mmmartins.agendaservico.exception.RegistroJaExistenteException;
 import dev.mmmartins.agendaservico.exception.SenhaInvalidaException;
-import dev.mmmartins.agendaservico.exception.UsuarioJaExistenteException;
 import dev.mmmartins.agendaservico.model.Usuario;
 import dev.mmmartins.agendaservico.service.UsuarioService;
 import org.springframework.stereotype.Controller;
@@ -21,13 +21,13 @@ public class LoginController {
 
     @GetMapping("/login")
     public String loginIndex() {
-        return "login";
+        return "auth/login";
     }
 
     @GetMapping("/register")
     public String showRegistrationForm(final Model model) {
         model.addAttribute("user", new Usuario());
-        return "register";
+        return "auth/register";
     }
 
     @PostMapping("/register")
@@ -35,7 +35,7 @@ public class LoginController {
                                final RedirectAttributes redirectAttributes) {
         try {
             usuarioService.createUser(usuario);
-        } catch (UsuarioJaExistenteException | SenhaInvalidaException e) {
+        } catch (final RegistroJaExistenteException | SenhaInvalidaException e) {
             redirectAttributes.addFlashAttribute("error", e.getMessage());
             return "redirect:/register";
         }

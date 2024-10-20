@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="menu" data-bs-theme="dark">
+<html data-bs-theme="dark" lang="en" sec:authorize="isAuthenticated()" th:fragment="menu"
+      xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head >
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,7 +35,7 @@
 <body>
 <nav class="navbar navbar-expand-lg bg-dark-subtle">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">NOME DO PROJETO</a>
+        <a class="navbar-brand" th:href="@{/}">Controle de Serviços <i class="bi bi-radioactive"></i></a>
         <div class="ms-auto">
             <form th:action="@{/logout}" method="post" style="display:inline;">
                 <button type="submit" class="btn btn-link nav-link" style="display:inline;"> <span class="navbar-text">
@@ -50,26 +51,32 @@
         <nav class="col-md-3 col-lg-2 d-md-block bg-dark-subtle sidebar ">
             <div class="position-sticky pt-3">
                 <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="nav-link active" th:href="@{/usuarios}">
+                            <i class="bi bi-gear"></i>
+                            <span>Usuários</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_USER') || hasRole('ROLE_ADMIN')">
+                        <a class="nav-link active" th:href="@{/agendas}">
                             <i class="bi bi-calendar-event"></i>
                             <span>Agenda</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="bi bi-gear"></i>
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_USER') || hasRole('ROLE_ADMIN')">
+                        <a class="nav-link" th:href="@{/servicos}">
+                            <i class="bi bi-currency-dollar"></i>
                             <span>Serviços</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_USER') || hasRole('ROLE_ADMIN')">
+                        <a class="nav-link" th:href="@{/clientes}">
                             <i class="bi bi-people"></i>
                             <span>Clientes</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_USER') || hasRole('ROLE_ADMIN')">
+                        <a class="nav-link" th:href="@{/enderecos}">
                             <i class="bi bi-geo-alt"></i>
                             <span>Endereços</span>
                         </a>

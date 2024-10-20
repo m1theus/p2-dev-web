@@ -3,6 +3,9 @@ server:
 spring:
   application:
     name: agendaservico
+  profiles:
+    active: "local"
+    default: "local"
   thymeleaf:
     cache: false
   datasource:
