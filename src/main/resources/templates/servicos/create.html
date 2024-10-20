@@ -30,32 +30,33 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label class="form-label" for="id" th:hidden="${!#strings.equals(action, 'edit')}">ID</label>
+                            <label class="form-label" for="id"
+                                   th:hidden="${!#strings.equals(action, 'edit')}">ID</label>
                             <input class="form-control"
                                    id="id" name="id"
+                                   th:field="*{id}"
                                    th:hidden="${!#strings.equals(action, 'edit')}"
-                                   th:required="${#strings.equals(action, 'edit')}"
                                    th:readonly="${#strings.equals(action, 'edit')}"
-                                   th:field="*{id}" type="text">
+                                   th:required="${#strings.equals(action, 'edit')}" type="text">
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="nome">Nome</label>
                             <input class="form-control" id="nome" name="nome" required th:field="*{nome}" type="text">
-                            <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="text-danger"></span>
+                            <span class="text-danger" th:errors="*{nome}" th:if="${#fields.hasErrors('nome')}"></span>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="valor">Valor</label>
                             <input class="form-control" id="valor" name="valor" required th:field="*{valor}"
                                    type="number">
-                            <span th:if="${#fields.hasErrors('valor')}" th:errors="*{valor}" class="text-danger"></span>
+                            <span class="text-danger" th:errors="*{valor}" th:if="${#fields.hasErrors('valor')}"></span>
                         </div>
                     </div>
-                <div class="row mt-3">
-                    <div class="col-md-12 text-end">
-                        <a class="btn btn-secondary me-2" th:href="@{/servicos}" type="button">Cancelar</a>
-                        <button class="btn btn-primary" type="submit">Salvar</button>
+                    <div class="row mt-3">
+                        <div class="col-md-12 text-end">
+                            <a class="btn btn-secondary me-2" th:href="@{/servicos}" type="button">Cancelar</a>
+                            <button class="btn btn-primary" type="submit">Salvar</button>
+                        </div>
                     </div>
-                </div>
             </form>
         </div>
     </div>

@@ -32,57 +32,63 @@
                         <div class="col-md-6 mb-3">
                             <label class="form-label" for="id">ID</label>
                             <input class="form-control" id="id" name="id"
-                                   th:field="*{id}" type="text" th:readonly="true">
+                                   th:field="*{id}" th:readonly="true" type="text">
                         </div>
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label class="form-label" for="logradouro">Logradouro</label>
-                            <input class="form-control" id="logradouro" name="logradouro" required
-                                   th:field="*{logradouro}" type="text">
-                            <span th:if="${#fields.hasErrors('logradouro')}" th:errors="*{logradouro}" class="text-danger"></span>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label" for="uf">UF</label>
-                                <input class="form-control" id="uf" name="uf" required th:field="*{estado}"
-                                       type="text">
-                                <span th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}" class="text-danger"></span>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label" for="logradouro">Logradouro</label>
+                                <input class="form-control" id="logradouro" name="logradouro" required
+                                       th:field="*{logradouro}" type="text">
+                                <span class="text-danger" th:errors="*{logradouro}"
+                                      th:if="${#fields.hasErrors('logradouro')}"></span>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label" for="cep">CEP</label>
-                                <input class="form-control" id="cep" name="cep" required th:field="*{cep}"
-                                       type="text">
-                                <span th:if="${#fields.hasErrors('cep')}" th:errors="*{cep}" class="text-danger"></span>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label" for="uf">UF</label>
+                                    <input class="form-control" id="uf" name="uf" required th:field="*{estado}"
+                                           type="text">
+                                    <span class="text-danger" th:errors="*{estado}"
+                                          th:if="${#fields.hasErrors('estado')}"></span>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label" for="cep">CEP</label>
+                                    <input class="form-control" id="cep" name="cep" required th:field="*{cep}"
+                                           type="text">
+                                    <span class="text-danger" th:errors="*{cep}"
+                                          th:if="${#fields.hasErrors('cep')}"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label" for="numero">Número</label>
-                                <input class="form-control" id="numero" name="numero" required
-                                       th:field="*{numero}" type="text">
-                                <span th:if="${#fields.hasErrors('numero')}" th:errors="*{numero}" class="text-danger"></span>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label" for="numero">Número</label>
+                                    <input class="form-control" id="numero" name="numero" required
+                                           th:field="*{numero}" type="text">
+                                    <span class="text-danger" th:errors="*{numero}"
+                                          th:if="${#fields.hasErrors('numero')}"></span>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label" for="cidade">Cidade</label>
+                                    <input class="form-control" id="cidade" name="cidade" required
+                                           th:field="*{cidade}" type="text">
+                                    <span class="text-danger" th:errors="*{cidade}"
+                                          th:if="${#fields.hasErrors('cidade')}"></span>
+                                </div>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label" for="cidade">Cidade</label>
-                                <input class="form-control" id="cidade" name="cidade" required
-                                       th:field="*{cidade}" type="text">
-                                <span th:if="${#fields.hasErrors('cidade')}" th:errors="*{cidade}" class="text-danger"></span>
+                            <div class="mb-3">
+                                <label class="form-label" for="complemento">Complemento</label>
+                                <input class="form-control" id="complemento" name="complemento"
+                                       th:field="*{complemento}" type="text">
+                                <span class="text-danger" th:errors="*{complemento}"
+                                      th:if="${#fields.hasErrors('complemento')}"></span>
                             </div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="complemento">Complemento</label>
-                            <input class="form-control" id="complemento" name="complemento"
-                                   th:field="*{complemento}" type="text">
-                            <span th:if="${#fields.hasErrors('complemento')}" th:errors="*{complemento}" class="text-danger"></span>
                         </div>
                     </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-12 text-end">
-                        <a class="btn btn-secondary me-2" th:href="@{/enderecos}" type="button">Cancelar</a>
-                        <button class="btn btn-primary" type="submit">Salvar</button>
+                    <div class="row mt-3">
+                        <div class="col-md-12 text-end">
+                            <a class="btn btn-secondary me-2" th:href="@{/enderecos}" type="button">Cancelar</a>
+                            <button class="btn btn-primary" type="submit">Salvar</button>
+                        </div>
                     </div>
-                </div>
             </form>
         </div>
     </div>

@@ -2,7 +2,6 @@ package dev.mmmartins.agendaservico.controller;
 
 import dev.mmmartins.agendaservico.exception.RegistroNaoEncontradoException;
 import dev.mmmartins.agendaservico.model.Endereco;
-import dev.mmmartins.agendaservico.model.Servico;
 import dev.mmmartins.agendaservico.repository.EnderecoRepository;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;

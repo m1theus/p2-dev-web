@@ -24,42 +24,53 @@
             <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button"></button>
         </div>
         <div class="container mt-5">
-            <form th:attr="data-agenda=${agenda.getServicosIds()}" th:id="form-create" th:form="form-create" method="post" th:action="@{/agendas/cadastro}" th:object="${agenda}">
+            <form method="post" th:action="@{/agendas/cadastro}" th:attr="data-agenda=${agenda.getServicosIds()}"
+                  th:form="form-create" th:id="form-create" th:object="${agenda}">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="mb-3">
-                            <label class="form-label" for="id" th:hidden="${!#strings.equals(action.toString(), 'UPDATE')}" >ID</label>
-                            <input class="form-control" id="id" name="id" th:hidden="${!#strings.equals(action.toString(), 'UPDATE')}"
-                                   th:readonly="${!#strings.equals(action, 'edit')}"
-                                   th:field="*{id}" type="text">
+                            <label class="form-label" for="id"
+                                   th:hidden="${!#strings.equals(action.toString(), 'UPDATE')}">ID</label>
+                            <input class="form-control" id="id" name="id"
+                                   th:field="*{id}"
+                                   th:hidden="${!#strings.equals(action.toString(), 'UPDATE')}"
+                                   th:readonly="${!#strings.equals(action, 'edit')}" type="text">
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="descricao">Descrição</label>
-                            <input class="form-control" id="descricao" name="descricao" required th:field="*{descricao}" type="text">
-                            <span th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}" class="text-danger"></span>
+                            <input class="form-control" id="descricao" name="descricao" required th:field="*{descricao}"
+                                   type="text">
+                            <span class="text-danger" th:errors="*{descricao}"
+                                  th:if="${#fields.hasErrors('descricao')}"></span>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="data">Data</label>
-                            <input type="date" id="data" class="form-control" th:field="*{data}" required/>
-                            <span th:if="${#fields.hasErrors('data')}" th:errors="*{data}" class="text-danger"></span>
+                            <input class="form-control" id="data" required th:field="*{data}" type="date"/>
+                            <span class="text-danger" th:errors="*{data}" th:if="${#fields.hasErrors('data')}"></span>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="cliente">Cliente</label>
-                            <select th:field="*{cliente.cpf}" name="cliente" id="cliente" class="form-control">
-                                <option th:each="cliente : ${todosClientes}" th:value="${cliente.cpf}" th:text="${cliente.cpf} + ' - ' + ${cliente.nome}"></option>
+                            <select class="form-control" id="cliente" name="cliente" th:field="*{cliente.cpf}">
+                                <option th:each="cliente : ${todosClientes}" th:text="${cliente.cpf} + ' - ' + ${cliente.nome}"
+                                        th:value="${cliente.cpf}"></option>
                             </select>
-                            <span th:if="${#fields.hasErrors('cliente')}" th:errors="*{cliente}" class="text-danger"></span>
+                            <span class="text-danger" th:errors="*{cliente}"
+                                  th:if="${#fields.hasErrors('cliente')}"></span>
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
                         <div class="form-group">
                             <label for="servicoSelect">Serviço</label>
-                            <select  id="servicoSelect" class="form-control">
-                                <option th:each="servico : ${todosServicos}" th:value="${servico.id}" th:text="${servico.nome}"></option>
+                            <select class="form-control" id="servicoSelect">
+                                <option th:each="servico : ${todosServicos}" th:text="${servico.nome}"
+                                        th:value="${servico.id}"></option>
                             </select>
-                            <span th:if="${#fields.hasErrors('servicos')}" th:errors="*{servicos}" class="text-danger"></span>
+                            <span class="text-danger" th:errors="*{servicos}"
+                                  th:if="${#fields.hasErrors('servicos')}"></span>
                             <div>
-                                <button type="button" id="addServico" class="btn btn-outline-primary mt-2">Adicionar Serviço</button>
+                                <button class="btn btn-outline-primary mt-2" id="addServico" type="button">Adicionar
+                                    Serviço
+                                </button>
                             </div>
                         </div>
                         <table class="table table-bordered">
@@ -86,7 +97,7 @@
     </div>
 </div>
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         const servicosIds = $('#form-create').attr("data-agenda")
         let data = servicosIds.split(", ")
         for (const rawData of data) {

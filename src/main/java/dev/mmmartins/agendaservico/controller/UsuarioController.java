@@ -31,7 +31,7 @@ public class UsuarioController {
 
     @PostMapping("/usuarios")
     public String update(@ModelAttribute("usuario") final Usuario usuario,
-                       final RedirectAttributes redirectAttributes) {
+                         final RedirectAttributes redirectAttributes) {
         try {
             usuarioService.update(usuario);
             redirectAttributes.addFlashAttribute("success", "Role atualizada com sucesso!");

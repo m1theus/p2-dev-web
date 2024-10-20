@@ -4,7 +4,6 @@ import dev.mmmartins.agendaservico.exception.RegistroJaExistenteException;
 import dev.mmmartins.agendaservico.exception.RegistroNaoEncontradoException;
 import dev.mmmartins.agendaservico.model.Cliente;
 import dev.mmmartins.agendaservico.repository.ClienteRepository;
-import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

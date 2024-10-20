@@ -1,8 +1,6 @@
 package dev.mmmartins.agendaservico.controller;
 
-import dev.mmmartins.agendaservico.exception.RegistroJaExistenteException;
 import dev.mmmartins.agendaservico.exception.RegistroNaoEncontradoException;
-import dev.mmmartins.agendaservico.model.Cliente;
 import dev.mmmartins.agendaservico.model.Servico;
 import dev.mmmartins.agendaservico.repository.ServicoRepository;
 import jakarta.validation.Valid;
@@ -18,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class ServicoController {
     final ServicoRepository servicoRepository;
+
     public ServicoController(final ServicoRepository servicoRepository) {
         this.servicoRepository = servicoRepository;
     }
