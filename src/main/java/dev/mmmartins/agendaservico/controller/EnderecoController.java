@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class EnderecoController {
     private final EnderecoRepository enderecoRepository;
 
+
     public EnderecoController(final EnderecoRepository enderecoRepository) {
         this.enderecoRepository = enderecoRepository;
     }

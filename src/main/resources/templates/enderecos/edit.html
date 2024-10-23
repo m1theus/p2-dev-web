@@ -34,6 +34,13 @@
                             <input class="form-control" id="id" name="id"
                                    th:field="*{id}" th:readonly="true" type="text">
                         </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label" for="cep">CEP</label>
+                            <input class="form-control" id="cep" name="cep" required th:field="*{cep}"
+                                   type="text">
+                            <span class="text-danger" th:errors="*{cep}"
+                                  th:if="${#fields.hasErrors('cep')}"></span>
+                        </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label" for="logradouro">Logradouro</label>
@@ -49,13 +56,6 @@
                                            type="text">
                                     <span class="text-danger" th:errors="*{estado}"
                                           th:if="${#fields.hasErrors('estado')}"></span>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label" for="cep">CEP</label>
-                                    <input class="form-control" id="cep" name="cep" required th:field="*{cep}"
-                                           type="text">
-                                    <span class="text-danger" th:errors="*{cep}"
-                                          th:if="${#fields.hasErrors('cep')}"></span>
                                 </div>
                             </div>
                             <div class="row">
@@ -89,6 +89,7 @@
                             <button class="btn btn-primary" type="submit">Salvar</button>
                         </div>
                     </div>
+                </div>
             </form>
         </div>
     </div>
@@ -103,6 +104,20 @@
             const cepInput = $('#cep')
             cepInput.val(cepInput.cleanVal());
         });
+
+        $('#cep').on('change', () => {
+            const cep = $('#cep').cleanVal()
+            const url = `/enderecos/cep/${cep}`;
+            $.ajax({
+                method: 'GET',
+                url,
+            }).done(function (data) {
+                $('#logradouro').val(data.logradouro);
+                $('#cidade').val(data.localidade);
+                $('#uf').val(data.estado);
+                $('#complemento').val(data.complemento);
+            });
+        })
     });
 </script>
 </body>

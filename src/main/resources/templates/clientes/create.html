@@ -58,12 +58,28 @@
                     </div>
                     <div class="col-md-6">
                         <input th:field="*{endereco.id}" th:hidden="true" type="text">
-                        <div class="mb-3">
-                            <label class="form-label" for="logradouro">Logradouro</label>
-                            <input class="form-control" id="logradouro" name="logradouro" required
-                                   th:field="*{endereco.logradouro}" type="text">
-                            <span class="text-danger" th:errors="*{endereco.logradouro}"
-                                  th:if="${#fields.hasErrors('endereco.logradouro')}"></span>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="cep">CEP</label>
+                                <input class="form-control" id="cep" name="cep" required th:field="*{endereco.cep}"
+                                       type="text">
+                                <span class="text-danger" th:errors="*{endereco.cep}"
+                                      th:if="${#fields.hasErrors('endereco.cep')}"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="numero">Número</label>
+                                <input class="form-control" id="numero" name="numero" required
+                                       th:field="*{endereco.numero}" type="text">
+                                <span class="text-danger" th:errors="*{endereco.numero}"
+                                      th:if="${#fields.hasErrors('endereco.numero')}"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="logradouro">Logradouro</label>
+                                <input class="form-control" id="logradouro" name="logradouro" required
+                                       th:field="*{endereco.logradouro}" type="text">
+                                <span class="text-danger" th:errors="*{endereco.logradouro}"
+                                      th:if="${#fields.hasErrors('endereco.logradouro')}"></span>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
@@ -73,22 +89,6 @@
                                        type="text">
                                 <span class="text-danger" th:errors="*{endereco.estado}"
                                       th:if="${#fields.hasErrors('endereco.estado')}"></span>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label" for="cep">CEP</label>
-                                <input class="form-control" id="cep" name="cep" required th:field="*{endereco.cep}"
-                                       type="text">
-                                <span class="text-danger" th:errors="*{endereco.cep}"
-                                      th:if="${#fields.hasErrors('endereco.cep')}"></span>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label" for="numero">Número</label>
-                                <input class="form-control" id="numero" name="numero" required
-                                       th:field="*{endereco.numero}" type="text">
-                                <span class="text-danger" th:errors="*{endereco.numero}"
-                                      th:if="${#fields.hasErrors('endereco.numero')}"></span>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label" for="cidade">Cidade</label>
@@ -135,6 +135,20 @@
             const telefoneInput = $('#telefone')
             telefoneInput.val(telefoneInput.cleanVal());
         });
+
+        $('#cep').on('change', () => {
+            const cep = $('#cep').cleanVal()
+            const url = `/enderecos/cep/${cep}`;
+            $.ajax({
+                method: 'GET',
+                url,
+            }).done(function (data) {
+                $('#logradouro').val(data.logradouro);
+                $('#cidade').val(data.localidade);
+                $('#estado').val(data.estado);
+                $('#complemento').val(data.complemento);
+            });
+        })
     });
 </script>
 </body>

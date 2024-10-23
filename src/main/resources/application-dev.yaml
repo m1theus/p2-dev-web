@@ -1,5 +1,14 @@
 server:
   port: ${SERVER_PORT:8080}
+feign:
+  config:
+    default:
+      loggerLevel: full
+  client:
+    viacep:
+      url: "https://viacep.com.br/ws"
+      timeout: 2000
+      loggerLevel: full
 spring:
   application:
     name: agendaservico
