@@ -29,6 +29,7 @@ public class SecurityConfig {
                         .requestMatchers("/usuarios", "/usuarios/**").hasRole("ADMIN")
                         .requestMatchers(
                                 "/clientes/**",
+                                "/funcionarios/**",
                                 "/servicos/**",
                                 "/agendas/**",
                                 "/enderecos/**"

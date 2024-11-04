@@ -51,6 +51,11 @@ public class Agenda {
     @JoinColumn
     private Cliente cliente;
 
+    @NotNull(message = "O funcionário não pode ser vazio!")
+    @ManyToOne
+    @JoinColumn
+    private Funcionario funcionario;
+
     public String getServicosNomes() {
         return servicos.stream()
                 .map(Servico::getNome)

@@ -81,6 +81,12 @@
                         </a>
                     </li>
                     <li class="nav-item" sec:authorize="hasRole('ROLE_USER') || hasRole('ROLE_ADMIN')">
+                        <a class="nav-link" th:href="@{/funcionarios}">
+                            <i class="bi bi-people"></i>
+                            <span>Funcionários</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_USER') || hasRole('ROLE_ADMIN')">
                         <a class="nav-link" th:href="@{/enderecos}">
                             <i class="bi bi-geo-alt"></i>
                             <span>Endereços</span>

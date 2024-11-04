@@ -2,6 +2,7 @@ package dev.mmmartins.agendaservico.controller;
 
 import dev.mmmartins.agendaservico.TipoAcao;
 import dev.mmmartins.agendaservico.model.Agenda;
+import dev.mmmartins.agendaservico.repository.FuncionarioRepository;
 import dev.mmmartins.agendaservico.repository.ServicoRepository;
 import dev.mmmartins.agendaservico.service.AgendaService;
 import dev.mmmartins.agendaservico.service.ClienteService;
@@ -23,13 +24,16 @@ public class AgendaController {
     private final AgendaService agendaService;
     private final ServicoRepository servicoRepository;
     private final ClienteService clienteService;
+    private final FuncionarioRepository funcionarioRepository;
 
     public AgendaController(final AgendaService agendaService,
                             final ServicoRepository servicoRepository,
-                            final ClienteService clienteService) {
+                            final ClienteService clienteService,
+                            final FuncionarioRepository funcionarioRepository) {
         this.agendaService = agendaService;
         this.servicoRepository = servicoRepository;
         this.clienteService = clienteService;
+        this.funcionarioRepository = funcionarioRepository;
     }
 
     @GetMapping("/agendas")
@@ -44,6 +48,7 @@ public class AgendaController {
         model.addAttribute("action", TipoAcao.INSERT);
         model.addAttribute("todosServicos", servicoRepository.findAll());
         model.addAttribute("todosClientes", clienteService.findAll());
+        model.addAttribute("todosFuncionarios", funcionarioRepository.findAll());
         return "agendas/create";
     }
 
@@ -54,6 +59,7 @@ public class AgendaController {
         model.addAttribute("action", TipoAcao.UPDATE);
         model.addAttribute("todosServicos", servicoRepository.findAll());
         model.addAttribute("todosClientes", clienteService.findAll());
+        model.addAttribute("todosFuncionarios", funcionarioRepository.findAll());
         return "agendas/create";
     }
 
