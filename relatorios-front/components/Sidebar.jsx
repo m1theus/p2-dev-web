@@ -6,8 +6,8 @@ import { Users, Briefcase, Calendar, UserCircle } from 'lucide-react';
 
 const menuItems = [
   { name: 'Clientes', href: '/clientes', icon: UserCircle },
-  { name: 'Funcionarios', href: '/funcionarios', icon: Users },
-  { name: 'Servicos', href: '/servicos', icon: Briefcase },
+  { name: 'Funcionários', href: '/funcionarios', icon: Users },
+  { name: 'Serviços', href: '/servicos', icon: Briefcase },
   { name: 'Agendas', href: '/agendas', icon: Calendar },
 ];
 
