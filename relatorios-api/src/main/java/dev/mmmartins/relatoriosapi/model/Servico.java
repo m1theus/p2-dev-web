@@ -1,5 +1,6 @@
 package dev.mmmartins.relatoriosapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,9 +11,11 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Entity
 @Data
-public class Servico {
+public class Servico implements Serializable, BaseEntity {
     @Id
     @Column
     @GeneratedValue
@@ -27,4 +30,19 @@ public class Servico {
     @NotNull(message = "O valor não pode ser vazio!")
     @Positive(message = "O valor deve ser um valor positivo!")
     private Double valor;
+
+    @JsonIgnore
+    @Override
+    public String[] getRecord() {
+        return new String[]{
+                id.toString(),
+                nome,
+                valor.toString()
+        };
+    }
+
+    @Override
+    public String toString() {
+        return String.format("#%s - %s - %s", id, nome, valor);
+    }
 }

@@ -1,5 +1,6 @@
 package dev.mmmartins.relatoriosapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -15,6 +16,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +24,7 @@ import java.util.stream.Collectors;
 
 @Entity
 @Data
-public class Agenda {
+public class Agenda implements Serializable, BaseEntity {
     @Id
     @Column
     @GeneratedValue
@@ -56,15 +58,35 @@ public class Agenda {
     @JoinColumn
     private Funcionario funcionario;
 
-    public String getServicosNomes() {
-        return servicos.stream()
-                .map(Servico::getNome)
-                .collect(Collectors.joining(", "));
+    @Override
+    public String toString() {
+        return "Agenda{" +
+                "id=" + id +
+                ", descricao='" + descricao + '\'' +
+                ", data=" + data +
+                ", servicos=" + servicos +
+                ", cliente=" + cliente +
+                ", funcionario=" + funcionario +
+                '}';
     }
 
-    public String getServicosIds() {
-        return servicos.stream()
-                .map(s -> String.format("%s-%s", s.getId(), s.getNome()))
-                .collect(Collectors.joining(", "));
+    @Override
+    @JsonIgnore
+    public String[] getRecord() {
+        return new String[]{
+                getId().toString(),
+                getDescricao(),
+                getData().toString(),
+                getServicosRecord(),
+                getCliente().getCpf(),
+                String.format("%s - %s", getFuncionario().getId(), getFuncionario().getNome())};
+    }
+
+    @JsonIgnore
+    public String getServicosRecord() {
+        return this.servicos
+                .stream()
+                .map(item -> String.format("%s - %s - %s", item.getId(), item.getNome(), item.getValor()))
+                .collect(Collectors.joining());
     }
 }

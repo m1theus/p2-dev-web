@@ -1,5 +1,6 @@
 package dev.mmmartins.relatoriosapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,11 +16,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
+import java.io.Serializable;
+
 @Entity
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class Funcionario {
+public class Funcionario implements Serializable, BaseEntity {
     @Id
     @GeneratedValue
     private Long id;
@@ -40,4 +43,22 @@ public class Funcionario {
     @Positive(message = "O salário deve ser positivo!")
     @Column(nullable = false)
     private Double salario;
+
+    @JsonIgnore
+    @Override
+    public String[] getRecord() {
+        return new String[]{
+                id.toString(),
+                nome,
+                telefone,
+                email,
+                endereco.toString(),
+                salario.toString()
+        };
+    }
+
+    @Override
+    public String toString() {
+        return String.format("#%s - %s", id, nome);
+    }
 }

@@ -1,5 +1,6 @@
 package dev.mmmartins.relatoriosapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,12 +16,14 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.validator.constraints.br.CPF;
 
+import java.io.Serializable;
+
 @Entity
 @Data
 @Builder
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class Cliente {
+public class Cliente implements Serializable, BaseEntity {
     @Id
     @Column(unique = true, nullable = false)
     @CPF(message = "O campo CPF não é válido!")
@@ -44,4 +47,21 @@ public class Cliente {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id", nullable = false)
     private Endereco endereco;
+
+    @JsonIgnore
+    @Override
+    public String[] getRecord() {
+        return new String[]{
+                cpf,
+                nome,
+                telefone,
+                email,
+                String.format("#%s - %s - %s", endereco.getId(), endereco.getLogradouro(), endereco.getNumero()),
+        };
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s - %s", cpf, nome);
+    }
 }
