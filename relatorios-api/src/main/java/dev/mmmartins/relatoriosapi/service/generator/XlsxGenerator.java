@@ -37,7 +37,7 @@ public class XlsxGenerator<T> implements ArquivoGenerator<T> {
 
             workbook.write(baos);
         } catch (final Exception e) {
-            throw new BusinessException("Erro ao gerar arquivo CSV.");
+            throw new BusinessException("Erro ao gerar arquivo XLSX.");
         }
         return baos.toByteArray();
     }

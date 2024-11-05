@@ -42,7 +42,7 @@ public class PdfGenerator<T> implements ArquivoGenerator<T> {
 
             document.add(table);
         } catch (final Exception e) {
-            throw new BusinessException("Erro ao gerar arquivo CSV.");
+            throw new BusinessException("Erro ao gerar arquivo PDF.");
         }
 
         return baos.toByteArray();
