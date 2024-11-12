@@ -47,7 +47,7 @@
                         <div class="mb-3">
                             <label class="form-label" for="valor">Valor</label>
                             <input class="form-control" id="valor" name="valor" required th:field="*{valor}"
-                                   type="number">
+                                   type="text" placeholder="R$ 0,00">
                             <span class="text-danger" th:errors="*{valor}" th:if="${#fields.hasErrors('valor')}"></span>
                         </div>
                     </div>
@@ -63,11 +63,28 @@
 </div>
 <script>
     $(document).ready(function () {
-        $('#valor').on('input', function () {
-            this.value = this.value.replace(/[^0-9]/g, '');
-        });
+        const valor = $('#valor')
+        valor.val(formatCurrency(valor.val()));
+
         $('#form-create').on('submit', function () {
+            const valorInput = $('#valor')
+            const numericValue = parseFloat(valorInput.val().replace(/[^\d,-]/g, '').replace(',', '.'));
+            valorInput.val(numericValue);
         });
+
+        const currencyInput = document.getElementById('valor');
+        currencyInput.addEventListener('input', (event) => {
+            let value = event.target.value;
+            value = value.replace(/\D/g, '')
+            event.target.value = formatCurrency(value / 100);
+        });
+
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            }).format(value);
+        }
     });
 </script>
 </body>

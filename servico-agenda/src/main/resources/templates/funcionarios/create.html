@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html data-bs-theme="dark" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
@@ -9,166 +10,180 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 </head>
+
 <body>
-<div th:replace="~{fragments/menu :: menu}">
-    <div th:fragment="content">
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <div>
-                <h1 class="h3">Cadastrar Funcionário</h1>
+    <div th:replace="~{fragments/menu :: menu}">
+        <div th:fragment="content">
+            <div
+                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <div>
+                    <h1 class="h3">Cadastrar Funcionário</h1>
+                </div>
             </div>
-        </div>
 
-        <div class="alert alert-success" role="alert" th:if="${success}" th:text="${success}">
-            <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button"></button>
-        </div>
-        <div class="alert alert-danger" role="alert" th:if="${error}" th:text="${error}">
-            <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button"></button>
-        </div>
+            <div class="alert alert-success" role="alert" th:if="${success}" th:text="${success}">
+                <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button"></button>
+            </div>
+            <div class="alert alert-danger" role="alert" th:if="${error}" th:text="${error}">
+                <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button"></button>
+            </div>
 
-        <div class="container mt-5">
-            <form id="form-create" method="post" th:action="@{/funcionarios/cadastro}" th:object="${funcionario}">
-                <input id="acao" name="acao" th:value="${acao}" type="hidden"/>
+            <div class="container mt-5">
+                <form id="form-create" method="post" th:action="@{/funcionarios/cadastro}" th:object="${funcionario}">
+                    <input id="acao" name="acao" th:value="${acao}" type="hidden" />
 
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label class="form-label" for="id" th:hidden="${#strings.equals(acao.name(),'INSERT')}">ID</label>
-                            <input class="form-control" id="id" name="id" th:field="*{id}"
-                                   th:hidden="${#strings.equals(acao.name(),'INSERT')}"
-                                   th:readonly="${#strings.equals(acao.name(), 'UPDATE')}" type="text">
-                            <span class="text-danger" th:errors="*{id}" th:if="${#fields.hasErrors('id')}"></span>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="nome">Nome</label>
-                            <input class="form-control" id="nome" name="nome" required th:field="*{nome}" type="text">
-                            <span class="text-danger" th:errors="*{nome}" th:if="${#fields.hasErrors('nome')}"></span>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="email">E-mail</label>
-                            <input class="form-control" id="email" name="email" required th:field="*{email}"
-                                   type="email">
-                            <span class="text-danger" th:errors="*{email}" th:if="${#fields.hasErrors('email')}"></span>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="telefone">Telefone</label>
-                            <input class="form-control" id="telefone" name="telefone" required th:field="*{telefone}"
-                                   type="tel">
-                            <span class="text-danger" th:errors="*{telefone}"
-                                  th:if="${#fields.hasErrors('telefone')}"></span>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="salario">Salário</label>
-                            <input class="form-control" id="salario" name="salario" required th:field="*{salario}"
-                                   type="tel">
-                            <span class="text-danger" th:errors="*{salario}"
-                                  th:if="${#fields.hasErrors('salario')}"></span>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <input th:field="*{endereco.id}" th:hidden="true" type="text">
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label" for="cep">CEP</label>
-                                <input class="form-control" id="cep" name="cep" required th:field="*{endereco.cep}"
-                                       type="text">
-                                <span class="text-danger" th:errors="*{endereco.cep}"
-                                      th:if="${#fields.hasErrors('endereco.cep')}"></span>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label" for="numero">Número</label>
-                                <input class="form-control" id="numero" name="numero" required
-                                       th:field="*{endereco.numero}" type="text">
-                                <span class="text-danger" th:errors="*{endereco.numero}"
-                                      th:if="${#fields.hasErrors('endereco.numero')}"></span>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label" for="id"
+                                    th:hidden="${#strings.equals(acao.name(),'INSERT')}">ID</label>
+                                <input class="form-control" id="id" name="id" th:field="*{id}"
+                                    th:hidden="${#strings.equals(acao.name(),'INSERT')}"
+                                    th:readonly="${#strings.equals(acao.name(), 'UPDATE')}" type="text">
+                                <span class="text-danger" th:errors="*{id}" th:if="${#fields.hasErrors('id')}"></span>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="logradouro">Logradouro</label>
-                                <input class="form-control" id="logradouro" name="logradouro" required
-                                       th:field="*{endereco.logradouro}" type="text">
-                                <span class="text-danger" th:errors="*{endereco.logradouro}"
-                                      th:if="${#fields.hasErrors('endereco.logradouro')}"></span>
+                                <label class="form-label" for="nome">Nome</label>
+                                <input class="form-control" id="nome" name="nome" required th:field="*{nome}"
+                                    type="text">
+                                <span class="text-danger" th:errors="*{nome}"
+                                    th:if="${#fields.hasErrors('nome')}"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="email">E-mail</label>
+                                <input class="form-control" id="email" name="email" required th:field="*{email}"
+                                    type="email">
+                                <span class="text-danger" th:errors="*{email}"
+                                    th:if="${#fields.hasErrors('email')}"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="telefone">Telefone</label>
+                                <input class="form-control" id="telefone" name="telefone" required
+                                    th:field="*{telefone}" type="tel">
+                                <span class="text-danger" th:errors="*{telefone}"
+                                    th:if="${#fields.hasErrors('telefone')}"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="salario">Salário</label>
+                                <input class="form-control" id="salario" name="salario" required th:field="*{salario}"
+                                    type="text" placeholder="R$ 0,00">
+                                <span class="text-danger" th:errors="*{salario}"
+                                    th:if="${#fields.hasErrors('salario')}"></span>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label" for="estado">UF</label>
-                                <input class="form-control" id="estado" name="estado" required
-                                       th:field="*{endereco.estado}"
-                                       type="text">
-                                <span class="text-danger" th:errors="*{endereco.estado}"
-                                      th:if="${#fields.hasErrors('endereco.estado')}"></span>
+                        <div class="col-md-6">
+                            <input th:field="*{endereco.id}" th:hidden="true" type="text">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label" for="cep">CEP</label>
+                                    <input class="form-control" id="cep" name="cep" required th:field="*{endereco.cep}"
+                                        type="text">
+                                    <span class="text-danger" th:errors="*{endereco.cep}"
+                                        th:if="${#fields.hasErrors('endereco.cep')}"></span>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label" for="numero">Número</label>
+                                    <input class="form-control" id="numero" name="numero" required
+                                        th:field="*{endereco.numero}" type="text">
+                                    <span class="text-danger" th:errors="*{endereco.numero}"
+                                        th:if="${#fields.hasErrors('endereco.numero')}"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="logradouro">Logradouro</label>
+                                    <input class="form-control" id="logradouro" name="logradouro" required
+                                        th:field="*{endereco.logradouro}" type="text">
+                                    <span class="text-danger" th:errors="*{endereco.logradouro}"
+                                        th:if="${#fields.hasErrors('endereco.logradouro')}"></span>
+                                </div>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label" for="cidade">Cidade</label>
-                                <input class="form-control" id="cidade" name="cidade" required
-                                       th:field="*{endereco.cidade}" type="text">
-                                <span class="text-danger" th:errors="*{endereco.cidade}"
-                                      th:if="${#fields.hasErrors('endereco.cidade')}"></span>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label" for="estado">UF</label>
+                                    <input class="form-control" id="estado" name="estado" required
+                                        th:field="*{endereco.estado}" type="text">
+                                    <span class="text-danger" th:errors="*{endereco.estado}"
+                                        th:if="${#fields.hasErrors('endereco.estado')}"></span>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label" for="cidade">Cidade</label>
+                                    <input class="form-control" id="cidade" name="cidade" required
+                                        th:field="*{endereco.cidade}" type="text">
+                                    <span class="text-danger" th:errors="*{endereco.cidade}"
+                                        th:if="${#fields.hasErrors('endereco.cidade')}"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="complemento">Complemento</label>
-                            <input class="form-control" id="complemento" name="complemento" th:field="*{endereco.complemento}"
-                                   type="text">
-                            <span class="text-danger"
-                                  th:errors="*{endereco.complemento}" th:if="${#fields.hasErrors('endereco.complemento')}"></span>
+                            <div class="mb-3">
+                                <label class="form-label" for="complemento">Complemento</label>
+                                <input class="form-control" id="complemento" name="complemento"
+                                    th:field="*{endereco.complemento}" type="text">
+                                <span class="text-danger" th:errors="*{endereco.complemento}"
+                                    th:if="${#fields.hasErrors('endereco.complemento')}"></span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-12 text-end">
-                        <a class="btn btn-secondary me-2" th:href="@{/funcionarios}" type="button">Cancelar</a>
-                        <button class="btn btn-primary" type="submit">Salvar</button>
+                    <div class="row mt-3">
+                        <div class="col-md-12 text-end">
+                            <a class="btn btn-secondary me-2" th:href="@{/funcionarios}" type="button">Cancelar</a>
+                            <button class="btn btn-primary" type="submit">Salvar</button>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-<script>
-    $(document).ready(function () {
-        $('#cpf').mask('000.000.000-00', {placeholder: "___.___.___-__"});
-        $('#telefone').mask('(00) 00000-0000', {placeholder: "(__) _____-____"});
-        $('#cep').mask('00000-000', {placeholder: "_____-___"});
-        $('#numero').on('input', function () {
-            this.value = this.value.replace(/[^0-9]/g, '');
-        });
-        $(".salario").mask('decimal', {
-            'alias': 'numeric',
-            'groupSeparator': ',',
-            'autoGroup': true,
-            'digits': 2,
-            'radixPoint': ".",
-            'digitsOptional': false,
-            'allowMinus': false,
-            'prefix': 'R$ ',
-            'placeholder': ''
-        });
-        $('#form-create').on('submit', function () {
-            const cepInput = $('#cep')
-            cepInput.val(cepInput.cleanVal());
-
-            const salarioInput = $('#salario')
-            salarioInput.val(salarioInput.cleanVal());
-
-            const telefoneInput = $('#telefone')
-            telefoneInput.val(telefoneInput.cleanVal());
-        });
-
-        $('#cep').on('change', () => {
-            const cep = $('#cep').cleanVal()
-            const url = `/enderecos/cep/${cep}`;
-            $.ajax({
-                method: 'GET',
-                url,
-            }).done(function (data) {
-                $('#logradouro').val(data.logradouro);
-                $('#cidade').val(data.localidade);
-                $('#estado').val(data.estado);
-                $('#complemento').val(data.complemento);
+    <script>
+        $(document).ready(function () {
+            $('#cpf').mask('000.000.000-00', { placeholder: "___.___.___-__" });
+            $('#telefone').mask('(00) 00000-0000', { placeholder: "(__) _____-____" });
+            $('#cep').mask('00000-000', { placeholder: "_____-___" });
+            $('#numero').on('input', function () {
+                this.value = this.value.replace(/[^0-9]/g, '');
             });
-        })
-    });
-</script>
+            const salario = $('#salario')
+            salario.val(formatCurrency(salario.val()));
+
+            $('#form-create').on('submit', function () {
+                const cepInput = $('#cep')
+                cepInput.val(cepInput.cleanVal());
+
+                const salarioInput = $('#salario')
+                const numericValue = parseFloat(salarioInput.val().replace(/[^\d,-]/g, '').replace(',', '.'));
+                salarioInput.val(numericValue);
+
+                const telefoneInput = $('#telefone')
+                telefoneInput.val(telefoneInput.cleanVal());
+            });
+
+            $('#cep').on('change', () => {
+                const cep = $('#cep').cleanVal()
+                const url = `/enderecos/cep/${cep}`;
+                $.ajax({
+                    method: 'GET',
+                    url,
+                }).done(function (data) {
+                    $('#logradouro').val(data.logradouro);
+                    $('#cidade').val(data.localidade);
+                    $('#estado').val(data.estado);
+                    $('#complemento').val(data.complemento);
+                });
+            })
+
+            const currencyInput = document.getElementById('salario');
+
+            currencyInput.addEventListener('input', (event) => {
+                let value = event.target.value;
+                value = value.replace(/\D/g, '')
+                event.target.value = formatCurrency(value / 100);
+            });
+
+            function formatCurrency(value) {
+                return new Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                }).format(value);
+            }
+        });
+    </script>
 </body>
+
 </html>
