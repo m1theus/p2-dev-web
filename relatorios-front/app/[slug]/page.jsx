@@ -19,6 +19,12 @@ const fetchData = async (slug) => {
   );
 };
 
+const formatMoney = (value) =>
+  new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  }).format(value);
+
 const downloadFile = async (slug, type) => {
   try {
     const response = await fetch(
@@ -97,14 +103,14 @@ const tableDataMap = {
       <TableCell>{item?.telefone}</TableCell>
       <TableCell>{item?.email}</TableCell>
       <TableCell>{`#${item?.endereco.id} - ${item?.endereco.logradouro} - ${item?.endereco.numero}`}</TableCell>
-      <TableCell>{item?.salario}</TableCell>
+      <TableCell>{formatMoney(item?.salario)}</TableCell>
     </TableRow>
   ),
   servicos: (item) => (
     <TableRow key={item?.id}>
       <TableCell>{item?.id}</TableCell>
       <TableCell>{item?.nome}</TableCell>
-      <TableCell>{item?.valor}</TableCell>
+      <TableCell>{formatMoney(item?.valor)}</TableCell>
     </TableRow>
   ),
   agendas: (item) => (
