@@ -48,7 +48,7 @@
                     <tr th:each="servico : ${servicos}">
                         <td th:text="${servico.id}"></td>
                         <td th:text="${servico.nome}"></td>
-                        <td th:text="${servico.valor}"></td>
+                        <td class="valores" th:text="${servico.valor}"></td>
                         <td>
                             <div class="d-flex justify-content-end gap-2">
                                 <a class="btn btn-sm btn-outline-primary"
@@ -68,5 +68,19 @@
         </div>
     </div>
 </div>
+<script>
+    const formatMoney = (value) =>
+        new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+        }).format(value);
+
+    $(document).ready(function () {
+        $('.valores').each(function(){
+            var amount = $(this).text();
+            $(this).text(formatMoney(amount));
+        });
+    });
+</script>
 </body>
 </html>

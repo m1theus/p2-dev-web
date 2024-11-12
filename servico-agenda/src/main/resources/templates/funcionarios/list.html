@@ -80,19 +80,18 @@
     </div>
 </div>
 <script>
+    const formatMoney = (value) =>
+        new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL',
+        }).format(value);
+
     $(document).ready(function () {
         $('.telefone').mask('(00) 00000-0000');
         $('.cep').mask('00000-000');
-        $(".salario").mask('decimal', {
-            'alias': 'numeric',
-            'groupSeparator': ',',
-            'autoGroup': true,
-            'digits': 2,
-            'radixPoint': ".",
-            'digitsOptional': false,
-            'allowMinus': false,
-            'prefix': 'R$ ',
-            'placeholder': ''
+        $('.salario').each(function(){
+            var amount = $(this).text();
+            $(this).text(formatMoney(amount));
         });
     });
 </script>
