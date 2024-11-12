@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 @Entity
 @Data
-public class Agenda implements Serializable, BaseEntity {
+public class Agenda implements Serializable, CsvEntity {
     @Id
     @Column
     @GeneratedValue

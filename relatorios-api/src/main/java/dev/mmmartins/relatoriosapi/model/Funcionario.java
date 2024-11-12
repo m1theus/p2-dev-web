@@ -22,7 +22,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class Funcionario implements Serializable, BaseEntity {
+public class Funcionario implements Serializable, CsvEntity {
     @Id
     @GeneratedValue
     private Long id;

@@ -15,7 +15,7 @@ import java.io.Serializable;
 
 @Entity
 @Data
-public class Servico implements Serializable, BaseEntity {
+public class Servico implements Serializable, CsvEntity {
     @Id
     @Column
     @GeneratedValue

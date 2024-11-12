@@ -2,7 +2,7 @@ package dev.mmmartins.relatoriosapi.service.generator;
 
 import com.opencsv.CSVWriter;
 import dev.mmmartins.relatoriosapi.controller.exception.BusinessException;
-import dev.mmmartins.relatoriosapi.model.BaseEntity;
+import dev.mmmartins.relatoriosapi.model.CsvEntity;
 import org.springframework.stereotype.Component;
 
 import java.io.ByteArrayOutputStream;
@@ -18,7 +18,7 @@ public class CsvGenerator<T> implements ArquivoGenerator<T> {
         try (CSVWriter writer = new CSVWriter(new OutputStreamWriter(baos))) {
             writer.writeNext(headers.toArray(new String[0]));
 
-            data.forEach(item -> writer.writeNext(((BaseEntity) item).getRecord()));
+            data.forEach(item -> writer.writeNext(((CsvEntity) item).getRecord()));
 
         } catch (final Exception e) {
             throw new BusinessException("Erro ao gerar arquivo CSV.");

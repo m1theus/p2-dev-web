@@ -42,4 +42,9 @@ public class Endereco {
 
     @Column
     private String complemento;
+
+    @Override
+    public String toString() {
+        return String.format("#%s - %s, %s - %s %s, %s - %s", id, logradouro, numero, complemento, cidade, estado, cep);
+    }
 }

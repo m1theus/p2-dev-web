@@ -1,5 +1,5 @@
 package dev.mmmartins.relatoriosapi.model;
 
-public interface BaseEntity {
+public interface CsvEntity {
     String[] getRecord();
 }

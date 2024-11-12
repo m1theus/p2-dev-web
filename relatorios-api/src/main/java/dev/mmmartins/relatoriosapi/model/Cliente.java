@@ -23,7 +23,7 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @RequiredArgsConstructor
-public class Cliente implements Serializable, BaseEntity {
+public class Cliente implements Serializable, CsvEntity {
     @Id
     @Column(unique = true, nullable = false)
     @CPF(message = "O campo CPF não é válido!")
@@ -56,7 +56,13 @@ public class Cliente implements Serializable, BaseEntity {
                 nome,
                 telefone,
                 email,
-                String.format("#%s - %s - %s", endereco.getId(), endereco.getLogradouro(), endereco.getNumero()),
+                String.format("#%s - %s, %s - %s %s, %s - %s", endereco.getId(),
+                        endereco.getLogradouro(),
+                        endereco.getNumero(),
+                        endereco.getComplemento(),
+                        endereco.getCidade(),
+                        endereco.getEstado(),
+                        endereco.getCep())
         };
     }
 
